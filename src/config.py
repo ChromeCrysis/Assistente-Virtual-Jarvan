@@ -1,5 +1,9 @@
+#Speech Recognition
+import speech_recognition as sr
 #Synthesis
 import pyttsx3
+#OS
+import os
 
 reproducao = pyttsx3.init()
 
@@ -47,22 +51,33 @@ def verificar_nome_existe(nome):
     vazio.close()
 
 def abre_programas():
-            try:
-                lolzin = open("C:\Riot Games\League of Legends\LeagueClient.exe")
-                chrome = open("C:\Program Files (x86)\Google\Chrome\Application\chrome.exe")
-                if entrada == "abrir league of legends":
-                    voz_jarvan("Abrindo League of Legends")
-                    return lolzin
-                if entrada == "abrir google chrome":
-                    voz_jarvan("Abrindo Google Chrome")
-                    return chrome
-            except FileNotFoundError:
-                voz_jarvan("Não foi Possivel abrir o arquivo solicitado.")
-                lolzin = open("C:\Riot Games\League of Legends\LeagueClient.exe")
-                chrome = open("C:\Program Files (x86)\Google\Chrome\Application\chrome.exe")
-                lolzin.close()
-                chrome.close()
-    
+    print("Ouvindo...")
+    while True:
+        rec = sr.Recognizer()
+
+        with sr.Microphone() as s:
+            rec.adjust_for_ambient_noise(s)
+            while True:
+                try:
+                    audio = rec.listen(s)
+                    programa = rec.recognize_google(audio, language="pt")
+                    #print("Você disse: {}".format(programa))
+
+                    if programa == "Abrir league of legends":
+                        os.startfile("C:\Riot Games\League of Legends\LeagueClient.exe")
+                        voz_jarvan("Abrindo League of Legends")
+
+                    if programa == "Abrir google chrome":
+                        os.startfile("C:\Program Files (x86)\Google\Chrome\Application\chrome.exe")
+                        voz_jarvan("Abrindo Google Chrome")
+                        
+                except FileNotFoundError:
+                    voz_jarvan("Não foi Possivel abrir o arquivo solicitado.")
+                    lolzin = os.startfile("C:\Riot Games\League of Legends\LeagueClient.exe")
+                    chrome = os.startfile("C:\Program Files (x86)\Google\Chrome\Application\chrome.exe")
+                    lolzin.close()
+                    chrome.close()
+        
 
 lista_erros = [
     "Não entendi, por favor repita novamente.",
