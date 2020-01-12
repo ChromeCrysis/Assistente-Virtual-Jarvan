@@ -1,0 +1,1 @@
+Antes de começar instale a versão do Python 3.6. O arquivo para download se encontra na pasta src/dependencias/python3-6.8.exe
