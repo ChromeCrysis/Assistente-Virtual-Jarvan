@@ -1,0 +1,1 @@
+Antes de começar instale a versão do Python 3.6
