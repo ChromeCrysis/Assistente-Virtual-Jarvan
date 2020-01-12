@@ -5,6 +5,8 @@ import pyttsx3
 #OS
 import os
 import sys
+#Biblioteca de tempo 
+import time
 #Web Browser para abrir páginas web
 import webbrowser as web
 from jarvan import Jarvan
@@ -12,8 +14,8 @@ from jarvan import Jarvan
 reproducao = pyttsx3.init()
 
 version = "0.1.1"
-path_navegador = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
-path_lol = 'C:\Riot Games\League of Legends\LeagueClient.exe'
+path_navegador = r'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
+path_lol = r'C:\\Riot Games\\League of Legends\\LeagueClient.exe'
 
 #Introdução do Sistema 
 def introducao():
@@ -98,9 +100,27 @@ def fechar_programas(fala):
 def comandos(fala):
     try:
         voz_jarvan("Abrindo sequência de comandos.")
-        if "desligar" in fala:
-            resultado = "Desligando"
-            voz_jarvan(resultado)
+        if "desligar computador" in fala:
+            voz_jarvan("Deseja desligar seu computador?")
+            if "sim" in fala:
+                resultado = "Desligando"
+                voz_jarvan(resultado)
+                os.system("shutdown /s /t 5")
+            else:
+                voz_jarvan("Entendido, o computador não irá desligar.")
+        elif "desativar" in fala:
+            voz_jarvan("Deseja desativar os sistemas Sr.Bechelli?")
+            if "sim" in fala:
+                voz_jarvan("Desativando os sistemas, até a próxima Sr.Bechelli")
+                os.system("exit()")
+        elif "limpar terminal" in fala:
+            voz_jarvan("Deseja limpar o histórico Sr. Bechelli?")
+            if "sim" in fala:
+                voz_jarvan("Limpando terminal")
+                if os.name == "nt":
+                    os.system("cls")
+                else:
+                    os.system("clear")
         else:
             return "Este comando não está disponível, por favor tente novamente."
     except:
@@ -119,7 +139,7 @@ conversas = {
     "olá": "Oi, tudo bem?",
     "sim e você": "Estou bem, obrigado por perguntar",
     "qual é o seu nome": "Meu nome é Jarvan, prazer em conhecê-lo",
-    "obrigado Jarvan": "É sempre um prazer Sr.Bechelli",
+    "obrigado jarvan": "É sempre um prazer Sr.Bechelli",
     "você é um gênio jarvan": "Obrigado Sr.Bechelli, é sempre bom ouvir elogios"
 }
 
